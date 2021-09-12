@@ -1,5 +1,6 @@
 {
     "name": "terralang",
+    "publisher": "kith",
     "displayName": "Terra",
     "description": "Terra syntax highlight, based on Lua.",
     "version": "0.0.2",
@@ -16,13 +17,8 @@
         "languages": [
             {
                 "id": "terra",
-                "aliases": [
-                    "Terra",
-                    "terra"
-                ],
-                "extensions": [
-                    ".t", ".terra"
-                ],
+                "aliases": ["Terra", "terra"],
+                "extensions": [".t", ".terra"],
                 "configuration": "./language-configuration.json"
             }
         ],
