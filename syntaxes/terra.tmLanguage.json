@@ -10,7 +10,7 @@
   "patterns": [
     {
       "name": "meta.function.terra",
-      "match": "\\s*\\b(terra|function)\\s+([a-zA-Z_.:]+[.:])?([a-zA-Z_]\\w*)\\s*(\\(|::)([^)]*)\\s*((((\\):|->))\\s*(\\w+))|\\)\\s*)",
+      "match": "(?x)\\s*\\b(terra|function)\\s+([a-zA-Z_.:]+[.:])?\\s*([a-zA-Z_]\\w*)\\s*(\\(|::)([^)]*)\\s*((((\\):|->))\\s*(\\w+))|\\)\\s*)",
       "captures": {
         "1": {
           "name": "keyword.control.terra"
@@ -25,29 +25,56 @@
           "name": "punctuation.definition.parameters.begin.terra"
         },
         "5": {
-          "name": "variable.parameter.function.terra"
+          "patterns": [
+            {
+              "match": "([\\w_]\\w*)\\s*:?\\s*([^,]*)",
+              "captures": {
+                "1": {
+                  "name": "variable.parameter.function.language.python"
+                },
+                "2": {
+                  "name": "constant.language.terra"
+                }
+              }
+            }
+          ]
         },
         "8": {
           "name": "punctuation.definition.parameters.end.terra"
         },
         "10": {
-          "name": "variable.parameter.function.terra"
+          "name": "constant.language.terra"
+        }
+      }
+    },
+    {
+      "name": "entity.name.function.scope.terra",
+      "match": "(?x)\\s*\\b([a-zA-Z_.:]+[.:])?\\s*([\\w_]+)\\s*(\\()",
+      "captures": {
+        "1": {
+          "name": "entity.name.function.scope.terra"
+        },
+        "2": {
+          "name": "entity.name.function.terra"
+        },
+        "3": {
+          "name": "punctuation.definition.parameters.begin.terra"
         }
       }
     },
     {
       "name": "constant.numeric.terra",
-      "match": "(?x)\\s*(?<![\\d.])\\s0x[a-fA-F\\d]+|\\b\\d+(\\.\\d+)?([eE]-?\\d+)?|\\.\\d+([eE]-?\\d+)?"
+      "match": "(?x)(?<![\\d.])\\s0x[a-fA-F\\d]+|\\b\\d+(\\.\\d+)?([eE]-?\\d+)?|\\.\\d+([eE]-?\\d+)?"
     },
     {
       "name": "string.quoted.single.terra",
-      "begin": "(?x)\\s*''''",
+      "begin": "'",
       "beginCaptures": {
         "0": {
           "name": "punctuation.definition.string.begin.terra"
         }
       },
-      "end": "(?x)\\s*''''",
+      "end": "'",
       "endCaptures": {
         "0": {
           "name": "punctuation.definition.string.end.terra"
@@ -62,13 +89,13 @@
     },
     {
       "name": "string.quoted.double.terra",
-      "begin": "(?x)\\s*\"",
+      "begin": "\"",
       "beginCaptures": {
         "0": {
           "name": "punctuation.definition.string.begin.terra"
         }
       },
-      "end": "(?x)\\s*\"",
+      "end": "\"",
       "endCaptures": {
         "0": {
           "name": "punctuation.definition.string.end.terra"
@@ -83,13 +110,13 @@
     },
     {
       "name": "string.quoted.other.multiline.terra",
-      "begin": "(?x)\\s*(?<!--)\\[(=*)\\[",
+      "begin": "(?x)(?<!--)\\[(=*)\\[",
       "beginCaptures": {
         "0": {
           "name": "punctuation.definition.string.begin.terra"
         }
       },
-      "end": "(?x)\\s*\\]\\1\\]",
+      "end": "(?x)\\]\\1\\]",
       "endCaptures": {
         "0": {
           "name": "punctuation.definition.string.end.terra"
@@ -98,8 +125,8 @@
     },
     {
       "name": "comment.block.terra",
-      "begin": "(?x)\\s*--\\[(=*)\\[",
-      "end": "(?x)\\s*\\]\\1\\]",
+      "begin": "(?x)--\\[(=*)\\[",
+      "end": "(?x)\\]\\1\\]",
       "captures": {
         "0": {
           "name": "punctuation.definition.comment.terra"
@@ -108,7 +135,7 @@
     },
     {
       "name": "comment.line.double-dash.terra",
-      "match": "(?x)\\s*(--)(?!\\[\\[).*$\\n?",
+      "match": "(?x)(--)(?!\\[\\[).*$\\n?",
       "captures": {
         "1": {
           "name": "punctuation.definition.comment.terra"
@@ -116,28 +143,43 @@
       }
     },
     {
+      "name": "keyword.control.var.terra",
+      "match": "(?x)\\s*\\b(var)\\s*([\\w_,\\s]+):?([^=]*)=?",
+      "captures": {
+        "1": {
+          "name": "keyword.control.terra"
+        },
+        "2": {
+          "name": "variable.parameter.function.language.terra"
+        },
+        "3": {
+          "name": "constant.language.terra"
+        }
+      }
+    },
+    {
       "name": "keyword.control.terra",
-      "match": "(?x)\\s*\\b(break|case|do|else|elseif|end|for|function|goto|if|in|local|repeat|return|then|until|while|terra|var|struct|switch|union|quote|import|defer|escape)\\b"
+      "match": "(?x)\\b(break|case|do|else|elseif|end|for|function|goto|if|in|local|repeat|return|then|until|while|terra|var|struct|switch|union|quote|import|defer|escape)\\b"
     },
     {
       "name": "constant.language.terra",
-      "match": "(?x)\\s*(?<![^.]\\.|:)\\b(false|nil|true|_G|_VERSION|math\\.(pi|huge)|terralib|cudalib|symbol|int|int8|int16|int32|int64|uint|uint8|uint16|uint32|uint64|bool|float|double)\\b|(?<![.])\\.{3}(?!\\.)"
+      "match": "(?x)(?<![^.]\\.|:)\\b(false|nil|true|_G|_VERSION|math\\.(pi|huge)|terralib|cudalib|symbol|int|int8|int16|int32|int64|uint|uint8|uint16|uint32|uint64|bool|float|double)\\b|(?<![.])\\.{3}(?!\\.)"
     },
     {
       "name": "variable.language.self.terra",
-      "match": "(?x)\\s*(?<![^.]\\.|:)\\b(self)\\b"
+      "match": "(?x)(?<![^.]\\.|:)\\b(self)\\b"
     },
     {
       "name": "support.function.terra",
-      "match": "(?x)\\s*(?<![^.]\\.|:)\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b(?=[({])"
+      "match": "(?x)(?<![^.]\\.|:)\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b(?=[({])"
     },
     {
       "name": "support.function.library.terra",
-      "match": "(?x)\\s*(?<![^.]\\.|:)\\b(coroutine\\.(create|resume|running|status|wrap|yield)|string\\.(byte|char|dump|find|format|gmatch|gsub|len|lower|match|rep|reverse|sub|upper)|table\\.(concat|insert|maxn|remove|sort)|math\\.(abs|acos|asin|atan2?|ceil|cosh?|deg|exp|floor|fmod|frexp|ldexp|log|log10|max|min|modf|pow|rad|random|randomseed|sinh?|sqrt|tanh?)|io\\.(close|flush|input|lines|open|output|popen|read|tmpfile|type|write)|os\\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname)|package\\.(cpath|loaded|loadlib|path|preload|seeall)|terralib\\.(pointertolightuserdata|newlabel|registerinternalizedfiles|isfunction|bindtoluaapi|linklibraryimpl|printraw|linkllvmimpl|newtarget|includec|kinds|definequote|cudahome|constant|newquote|linkllvm|cudalibpaths|disas|anonfunction|llvm_version|attrstore|lookupline|backtrace|traceback|SymbolInfo|LineInfo|isdebug|sizeof|cudaloaderror|lookupsymbol|llvmversion|dumpmodule|islabel|version|ismacro|loadstring|intrinsic|irtypes|israwlist|types|registercfile|initdebugfns|languageextension|load|llvmsizeof|saveobj|type|isintegral|importlanguage|overloadedfunction|runlanguage|compilationunitaddvalue|linkllvmstring|systemincludes|linklibrary|jit|cast|currenttimeinseconds|offsetof|createmacro|global|anonstruct|disassemble|new|environment|makeenv|memoize|istarget|newenvironment|cudatarget|istree|_trees|attrload|saveobjimpl|defineobjects|__terrastate|debuginfo|diagnostics|unpacktuple|asm|unpackstruct|newanchor|includecstring|isverbose|initcompilationunit|includepath|newlist|unimportlanguages|llvm_gcdebugmetatable|typeof|islist|target|loadfile|externfunction|issymbol|freetarget|freecompilationunit|newcompilationunit|terrahome|macro|isconstant|isoverloadedfunction|isglobalvar|fulltrace|nativetarget|inittarget|jitcompilationunit|isquote|select|newdiagnostics|newsymbol|internalmacro|slimtrace|gcdebug)|debug\\.(debug|[gs]etfenv|[gs]ethook|getinfo|[gs]etlocal|[gs]etmetatable|getregistry|[gs]etupvalue|traceback))\\b(?=[({])"
+      "match": "(?x)(?<![^.]\\.|:)\\b(coroutine\\.(create|resume|running|status|wrap|yield)|string\\.(byte|char|dump|find|format|gmatch|gsub|len|lower|match|rep|reverse|sub|upper)|table\\.(concat|insert|maxn|remove|sort)|math\\.(abs|acos|asin|atan2?|ceil|cosh?|deg|exp|floor|fmod|frexp|ldexp|log|log10|max|min|modf|pow|rad|random|randomseed|sinh?|sqrt|tanh?)|io\\.(close|flush|input|lines|open|output|popen|read|tmpfile|type|write)|os\\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname)|package\\.(cpath|loaded|loadlib|path|preload|seeall)|terralib\\.(pointertolightuserdata|newlabel|registerinternalizedfiles|isfunction|bindtoluaapi|linklibraryimpl|printraw|linkllvmimpl|newtarget|includec|kinds|definequote|cudahome|constant|newquote|linkllvm|cudalibpaths|disas|anonfunction|llvm_version|attrstore|lookupline|backtrace|traceback|SymbolInfo|LineInfo|isdebug|sizeof|cudaloaderror|lookupsymbol|llvmversion|dumpmodule|islabel|version|ismacro|loadstring|intrinsic|irtypes|israwlist|types|registercfile|initdebugfns|languageextension|load|llvmsizeof|saveobj|type|isintegral|importlanguage|overloadedfunction|runlanguage|compilationunitaddvalue|linkllvmstring|systemincludes|linklibrary|jit|cast|currenttimeinseconds|offsetof|createmacro|global|anonstruct|disassemble|new|environment|makeenv|memoize|istarget|newenvironment|cudatarget|istree|_trees|attrload|saveobjimpl|defineobjects|__terrastate|debuginfo|diagnostics|unpacktuple|asm|unpackstruct|newanchor|includecstring|isverbose|initcompilationunit|includepath|newlist|unimportlanguages|llvm_gcdebugmetatable|typeof|islist|target|loadfile|externfunction|issymbol|freetarget|freecompilationunit|newcompilationunit|terrahome|macro|isconstant|isoverloadedfunction|isglobalvar|fulltrace|nativetarget|inittarget|jitcompilationunit|isquote|select|newdiagnostics|newsymbol|internalmacro|slimtrace|gcdebug)|debug\\.(debug|[gs]etfenv|[gs]ethook|getinfo|[gs]etlocal|[gs]etmetatable|getregistry|[gs]etupvalue|traceback))\\b(?=[({])"
     },
     {
       "name": "keyword.operator.terra",
-      "match": "(?x)\\s*\\b(and|or|not)\\b",
+      "match": "(?x)\\b(and|or|not)\\b",
       "captures": {
         "1": {
           "name": "keyword.control.terra"

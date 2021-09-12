@@ -17,8 +17,14 @@
         "languages": [
             {
                 "id": "terra",
-                "aliases": ["Terra", "terra"],
-                "extensions": [".t", ".terra"],
+                "aliases": [
+                    "Terra",
+                    "terra"
+                ],
+                "extensions": [
+                    ".t",
+                    ".terra"
+                ],
                 "configuration": "./language-configuration.json"
             }
         ],
