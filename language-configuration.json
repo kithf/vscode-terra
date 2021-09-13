@@ -28,7 +28,7 @@
         ["'", "'"]
     ],
     "indentationRules": {
-        "increaseIndentPattern": "^((?!--).)*(\\{[^}\"']*|then[^\"']*(?<!end)|do[^\"']*(?<!end)|quote[^\"']*(?<!end)|(terra|function)[^)]*\\).*(?<!end)|\\([^)\"']*|\\[[^\\]\"']*)$",
-        "decreaseIndentPattern": "^((?!.*?-\\\\*).*\\\\*-)?\\s*(\\)|\\]|\\}|end).*$" 
+        "increaseIndentPattern": "^((?!(\\-\\-)).)*((\\b(else|function|then|do|repeat|terra|qoute)\\b((?!\\b(end|until)\\b).)*)|(\\{\\s*))$",
+        "decreaseIndentPattern": "^\\s*((\\b(elseif|else|end|until)\\b)|(\\})|(\\)))" 
     }
 }
