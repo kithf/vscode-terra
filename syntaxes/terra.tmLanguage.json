@@ -12,47 +12,47 @@
       "begin": "\\b(?:(local)\\s+)?(function|terra)\\s*(?:\\s+([a-zA-Z_][a-zA-Z0-9_]*(?:([\\.:])[a-zA-Z_][a-zA-Z0-9_]*)?)\\s*)?(\\()",
       "beginCaptures": {
         "1": {
-          "name": "storage.modifier.local.lua"
+          "name": "storage.modifier.local.terra"
         },
         "2": {
-          "name": "keyword.control.lua"
+          "name": "keyword.control.terra"
         },
         "3": {
-          "name": "entity.name.function.lua"
+          "name": "entity.name.function.terra"
         },
         "4": {
-          "name": "punctuation.separator.parameter.lua"
+          "name": "punctuation.separator.parameter.terra"
         },
         "5": {
-          "name": "punctuation.definition.parameters.begin.lua"
+          "name": "punctuation.definition.parameters.begin.terra"
         }
       },
       "end": "(\\))\\s*(?::\\s*(\\S+))?\\n?",
       "endCaptures": {
         "1": {
-          "name": "punctuation.definition.parameters.end.lua"
+          "name": "punctuation.definition.parameters.end.terra"
         },
         "2": {
-          "name": "constant.language.lua"
+          "name": "constant.language.terra"
         }
       },
-      "name": "meta.function.lua",
+      "name": "meta.function.terra",
       "patterns": [
         {
           "match": "([a-zA-Z_][a-zA-Z0-9_]*)\\s*(?::\\s*([^\\s,\\(\\)]+)\\s*)?",
-          "name": "variable.parameter.function.lua",
+          "name": "variable.parameter.function.terra",
           "captures": {
             "1": {
-              "name": "variable.parameter.function.name.lua"
+              "name": "variable.parameter.function.name.terra"
             },
             "2": {
-              "name": "constant.language.lua"
+              "name": "constant.language.terra"
             }
           }
         },
         {
           "match": ",",
-          "name": "punctuation.separator.arguments.lua"
+          "name": "punctuation.separator.arguments.terra"
         }
       ]
     },
@@ -60,56 +60,81 @@
       "begin": "\\b(var)\\s+([a-zA-Z0-9_,.\\s]+)\\s*:?\\s*([^=;]*)",
       "beginCaptures": {
         "1": {
-          "name": "keyword.control.lua"
+          "name": "keyword.control.terra"
         },
         "2": {
           "patterns": [
             {
               "match": "\\b\\s*([a-zA-Z_][a-zA-Z0-9_]*)",
-              "name": "variable.parameter.function.lua"
+              "name": "variable.parameter.function.terra"
             },
             {
               "match": ",",
-              "name": "punctuation.separator.arguments.lua"
+              "name": "punctuation.separator.arguments.terra"
             }
           ]
         },
         "3": {
-          "name": "constant.language.lua"
+          "name": "constant.language.terra"
         }
       },
       "end": "\\s*(=|;)"
     },
     {
+      "begin": "\\b(struct|union)\\s*([a-zA-Z_]?[a-zA-Z0-9_]*)\\s*{",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.terra"
+        },
+        "2": {
+          "name": "constant.language.terra"
+        }
+      },
+      "end": "\\s*\\}",
+      "patterns": [
+        {
+          "match": "\\s*([a-zA-Z_][a-zA-Z0-9_]*)\\s*:\\s*([^\\n,]+)",
+          "captures": {
+            "1": {
+              "name": "variable.parameter.function.terra"
+            },
+            "2": {
+              "name": "constant.language.terra"
+            }
+          }
+        }
+      ]
+    },
+    {
       "match": "(?<![\\w\\d.])0[xX][0-9A-Fa-f]+(?![pPeE.0-9])",
-      "name": "constant.numeric.integer.hexadecimal.lua"
+      "name": "constant.numeric.integer.hexadecimal.terra"
     },
     {
       "match": "(?<![\\w\\d.])0[xX][0-9A-Fa-f]+(\\.[0-9A-Fa-f]+)?([eE]-?\\d*)?([pP][-+]\\d+)?",
-      "name": "constant.numeric.float.hexadecimal.lua"
+      "name": "constant.numeric.float.hexadecimal.terra"
     },
     {
       "match": "(?<![\\w\\d.])\\d+(?![pPeE.0-9])",
-      "name": "constant.numeric.integer.lua"
+      "name": "constant.numeric.integer.terra"
     },
     {
       "match": "(?<![\\w\\d.])\\d+(\\.\\d+)?([eE]-?\\d*)?",
-      "name": "constant.numeric.float.lua"
+      "name": "constant.numeric.float.terra"
     },
     {
       "begin": "'",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.string.begin.lua"
+          "name": "punctuation.definition.string.begin.terra"
         }
       },
       "end": "'",
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.string.end.lua"
+          "name": "punctuation.definition.string.end.terra"
         }
       },
-      "name": "string.quoted.single.lua",
+      "name": "string.quoted.single.terra",
       "patterns": [
         {
           "include": "#escaped_char"
@@ -120,16 +145,16 @@
       "begin": "\"",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.string.begin.lua"
+          "name": "punctuation.definition.string.begin.terra"
         }
       },
       "end": "\"",
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.string.end.lua"
+          "name": "punctuation.definition.string.end.terra"
         }
       },
-      "name": "string.quoted.double.lua",
+      "name": "string.quoted.double.terra",
       "patterns": [
         {
           "include": "#escaped_char"
@@ -140,20 +165,20 @@
       "begin": "(?<=\\.cdef)\\s*(\\[(=*)\\[)",
       "beginCaptures": {
         "0": {
-          "name": "string.quoted.other.multiline.lua"
+          "name": "string.quoted.other.multiline.terra"
         },
         "1": {
-          "name": "punctuation.definition.string.begin.lua"
+          "name": "punctuation.definition.string.begin.terra"
         }
       },
-      "contentName": "meta.embedded.lua",
+      "contentName": "meta.embedded.terra",
       "end": "(\\]\\2\\])",
       "endCaptures": {
         "0": {
-          "name": "string.quoted.other.multiline.lua"
+          "name": "string.quoted.other.multiline.terra"
         },
         "1": {
-          "name": "punctuation.definition.string.end.lua"
+          "name": "punctuation.definition.string.end.terra"
         }
       },
       "patterns": [
@@ -166,37 +191,37 @@
       "begin": "(?<!--)\\[(=*)\\[",
       "beginCaptures": {
         "0": {
-          "name": "punctuation.definition.string.begin.lua"
+          "name": "punctuation.definition.string.begin.terra"
         }
       },
       "end": "\\]\\1\\]",
       "endCaptures": {
         "0": {
-          "name": "punctuation.definition.string.end.lua"
+          "name": "punctuation.definition.string.end.terra"
         }
       },
-      "name": "string.quoted.other.multiline.lua"
+      "name": "string.quoted.other.multiline.terra"
     },
     {
       "captures": {
         "1": {
-          "name": "punctuation.definition.comment.lua"
+          "name": "punctuation.definition.comment.terra"
         }
       },
       "match": "\\A(#!).*$\\n?",
-      "name": "comment.line.shebang.lua"
+      "name": "comment.line.shebang.terra"
     },
     {
       "begin": "(^[ \\t]+)?(?=--)",
       "beginCaptures": {
         "1": {
-          "name": "punctuation.whitespace.comment.leading.lua"
+          "name": "punctuation.whitespace.comment.leading.terra"
         }
       },
       "end": "(?!\\G)((?!^)[ \\t]+\\n)?",
       "endCaptures": {
         "1": {
-          "name": "punctuation.whitespace.comment.trailing.lua"
+          "name": "punctuation.whitespace.comment.trailing.terra"
         }
       },
       "patterns": [
@@ -204,36 +229,36 @@
           "begin": "--\\[(=*)\\[",
           "beginCaptures": {
             "0": {
-              "name": "punctuation.definition.comment.begin.lua"
+              "name": "punctuation.definition.comment.begin.terra"
             }
           },
           "end": "\\]\\1\\]",
           "endCaptures": {
             "0": {
-              "name": "punctuation.definition.comment.end.lua"
+              "name": "punctuation.definition.comment.end.terra"
             }
           },
-          "name": "comment.block.lua"
+          "name": "comment.block.terra"
         },
         {
           "begin": "--",
           "beginCaptures": {
             "0": {
-              "name": "punctuation.definition.comment.lua"
+              "name": "punctuation.definition.comment.terra"
             }
           },
           "end": "\\n",
-          "name": "comment.line.double-dash.lua"
+          "name": "comment.line.double-dash.terra"
         }
       ]
     },
     {
       "captures": {
         "1": {
-          "name": "keyword.control.goto.lua"
+          "name": "keyword.control.goto.terra"
         },
         "2": {
-          "name": "constant.other.placeholder.lua"
+          "name": "constant.other.placeholder.terra"
         }
       },
       "match": "\\b(goto)\\s+([a-zA-Z_][a-zA-Z0-9_]*)"
@@ -241,55 +266,55 @@
     {
       "captures": {
         "1": {
-          "name": "punctuation.definition.label.begin.lua"
+          "name": "punctuation.definition.label.begin.terra"
         },
         "2": {
-          "name": "punctuation.definition.label.end.lua"
+          "name": "punctuation.definition.label.end.terra"
         }
       },
       "match": "(::)[a-zA-Z_][a-zA-Z0-9_]*(::)",
-      "name": "constant.other.placeholder.lua"
+      "name": "constant.other.placeholder.terra"
     },
     {
       "match": "\\b(break|case|do|else|elseif|end|for|function|goto|if|in|local|repeat|return|then|until|while|terra|var|struct|switch|union|quote|import|defer|escape)\\b",
-      "name": "keyword.control.lua"
+      "name": "keyword.control.terra"
     },
     {
       "match": "(?<![^.]\\.|:)\\b(false|nil|true|_G|_VERSION|math\\.(pi|huge)|terralib|cudalib|symbol|int|int8|int16|int32|int64|uint|uint8|uint16|uint32|uint64|bool|float|double)\\b|(?<![.])\\.{3}(?!\\.)",
-      "name": "constant.language.lua"
+      "name": "constant.language.terra"
     },
     {
       "match": "(?<![^.]\\.|:)\\b(self)\\b",
-      "name": "variable.language.self.lua"
+      "name": "variable.language.self.terra"
     },
     {
       "match": "(?<![^.]\\.|:)\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b(?=\\s*(?:[({\"']|\\[\\[))",
-      "name": "support.function.lua"
+      "name": "support.function.terra"
     },
     {
       "match": "(?<![^.]\\.|:)\\b(coroutine\\.(create|resume|running|status|wrap|yield)|string\\.(byte|char|dump|find|format|gmatch|gsub|len|lower|match|rep|reverse|sub|upper)|table\\.(concat|insert|maxn|remove|sort)|math\\.(abs|acos|asin|atan2?|ceil|cosh?|deg|exp|floor|fmod|frexp|ldexp|log|log10|max|min|modf|pow|rad|random|randomseed|sinh?|sqrt|tanh?)|io\\.(close|flush|input|lines|open|output|popen|read|tmpfile|type|write)|os\\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname)|package\\.(cpath|loaded|loadlib|path|preload|seeall)|debug\\.(debug|[gs]etfenv|[gs]ethook|getinfo|[gs]etlocal|[gs]etmetatable|getregistry|[gs]etupvalue|traceback)|terralib\\.(pointertolightuserdata|newlabel|registerinternalizedfiles|isfunction|bindtoluaapi|linklibraryimpl|printraw|linkllvmimpl|newtarget|includec|kinds|definequote|cudahome|constant|newquote|linkllvm|cudalibpaths|disas|anonfunction|llvm_version|attrstore|lookupline|backtrace|traceback|SymbolInfo|LineInfo|isdebug|sizeof|cudaloaderror|lookupsymbol|llvmversion|dumpmodule|islabel|version|ismacro|loadstring|intrinsic|irtypes|israwlist|types|registercfile|initdebugfns|languageextension|load|llvmsizeof|saveobj|type|isintegral|importlanguage|overloadedfunction|runlanguage|compilationunitaddvalue|linkllvmstring|systemincludes|linklibrary|jit|cast|currenttimeinseconds|offsetof|createmacro|global|anonstruct|disassemble|new|environment|makeenv|memoize|istarget|newenvironment|cudatarget|istree|_trees|attrload|saveobjimpl|defineobjects|__terrastate|debuginfo|diagnostics|unpacktuple|asm|unpackstruct|newanchor|includecstring|isverbose|initcompilationunit|includepath|newlist|unimportlanguages|llvm_gcdebugmetatable|typeof|islist|target|loadfile|externfunction|issymbol|freetarget|freecompilationunit|newcompilationunit|terrahome|macro|isconstant|isoverloadedfunction|isglobalvar|fulltrace|nativetarget|inittarget|jitcompilationunit|isquote|select|newdiagnostics|newsymbol|internalmacro|slimtrace|gcdebug))\\b(?=\\s*(?:[({\"']|\\[\\[))",
-      "name": "support.function.library.lua"
+      "name": "support.function.library.terra"
     },
     {
       "match": "\\b(and|or|not)\\b",
-      "name": "keyword.operator.lua",
+      "name": "keyword.operator.terra",
       "captures": {
         "0": {
-          "name": "keyowrd.control.lua"
+          "name": "keyword.control.terra"
         }
       }
     },
     {
       "match": "\\b([a-zA-Z_][a-zA-Z0-9_]*)\\b(?=\\s*(?:[({\"']|\\[\\[))",
-      "name": "support.function.any-method.lua"
+      "name": "support.function.any-method.terra"
     },
     {
       "match": "(?<=[^.]\\.|:)\\b([a-zA-Z_][a-zA-Z0-9_]*)",
-      "name": "variable.other.lua"
+      "name": "variable.other.terra"
     },
     {
-      "match": "\\+|-|%|`|@|>>|<<|#|\\*|\\/|\\^|==?|~=|<=?|>=?|(?<!\\.)\\.{2}(?!\\.)",
-      "name": "keyword.operator.lua"
+      "match": "\\+|-|%|`|@|->|>>|<<|#|\\*|\\/|\\^|==?|~=|<=?|>=?|(?<!\\.)\\.{2}(?!\\.)",
+      "name": "keyword.operator.terra"
     }
   ],
   "repository": {
@@ -297,23 +322,23 @@
       "patterns": [
         {
           "match": "\\\\[abfnrtvz\\\\\"'\\n]",
-          "name": "constant.character.escape.lua"
+          "name": "constant.character.escape.terra"
         },
         {
           "match": "\\\\\\d{1,3}",
-          "name": "constant.character.escape.byte.lua"
+          "name": "constant.character.escape.byte.terra"
         },
         {
           "match": "\\\\x[0-9A-Fa-f][0-9A-Fa-f]",
-          "name": "constant.character.escape.byte.lua"
+          "name": "constant.character.escape.byte.terra"
         },
         {
           "match": "\\\\u\\{[0-9A-Fa-f]+\\}",
-          "name": "constant.character.escape.unicode.lua"
+          "name": "constant.character.escape.unicode.terra"
         },
         {
           "match": "\\\\.",
-          "name": "invalid.illegal.character.escape.lua"
+          "name": "invalid.illegal.character.escape.terra"
         }
       ]
     }
