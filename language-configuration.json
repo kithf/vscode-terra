@@ -28,7 +28,7 @@
         ["'", "'"]
     ],
     "indentationRules": {
-        "increaseIndentPattern": "^((?!(\\-\\-)).)*((\\b(else|function|then|do|repeat|terra|qoute)\\b((?!\\b(end|until)\\b).)*)|(\\{\\s*))$",
+        "increaseIndentPattern": "^((?!(\\-\\-)).)*((\\b(else|function|then|do|repeat|terra|quote)\\b((?!\\b(end|until)\\b).)*)|(\\{\\s*))$",
         "decreaseIndentPattern": "^\\s*((\\b(elseif|else|end|until)\\b)|(\\})|(\\)))" 
     }
 }
